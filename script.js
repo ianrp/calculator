@@ -2,7 +2,8 @@ let displayVal = 0,
     oldVal = 0,
     newVal = null,
     op = null,
-    fresh = true;
+    fresh = true,
+    isDecimal = false;
 
 const display = document.querySelector(".display");
 
@@ -20,20 +21,37 @@ function handleInput() {
         newVal = null;
         op = null;
         fresh = true;
+        isDecimal = false;
 
     } else if (this.classList.contains("number")) {
 
         // reset values for new operation
         if (fresh) { 
             oldVal = 0;
-            newVal = 0;       
+            newVal = null;       
             op = null;
             fresh = false;
         }
+        
+        if (newVal === null && !isDecimal) displayVal = "";
+        displayVal += this.textContent;
+        newVal = +displayVal;      
 
-        // append digit to current value
-        newVal = newVal * 10 + +this.textContent;
-        displayVal = newVal;
+    } else if (this.classList.contains("decimal")) {     
+
+        if(!isDecimal) {
+
+            if (fresh) { 
+                oldVal = 0;
+                newVal = null;       
+                op = null;
+                fresh = false;
+            }
+
+            isDecimal = true;
+            if (newVal === null) displayVal = 0;
+            displayVal += ".";
+        }
 
     } else if (this.classList.contains("operator")) {
 
@@ -51,6 +69,7 @@ function handleInput() {
         fresh = false;
         op = this.textContent;
         newVal = null;
+        isDecimal = false;
         displayVal = oldVal;
 
     } else if (this.classList.contains("equals")) {
