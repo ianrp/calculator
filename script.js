@@ -49,7 +49,10 @@ function handleInput() {
             }
 
             isDecimal = true;
-            if (newVal === null) displayVal = 0;
+            if (newVal === null) {
+                displayVal = 0;
+                newVal = 0;
+            }
             displayVal += ".";
         }
 
@@ -70,7 +73,7 @@ function handleInput() {
         op = this.textContent;
         newVal = null;
         isDecimal = false;
-        displayVal = oldVal;
+        displayVal = +oldVal.toFixed(8);
 
     } else if (this.classList.contains("equals")) {
 
@@ -79,7 +82,7 @@ function handleInput() {
             fresh = true;
             if (newVal !== null) {
                 oldVal = operate(op, oldVal, newVal);
-                displayVal = oldVal;     
+                displayVal = +oldVal.toFixed(8);     
             // except when there's no second operand, just reset operator
             } else {
                 op = null;
