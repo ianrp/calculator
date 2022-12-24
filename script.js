@@ -1,3 +1,6 @@
+const maxDisplayLength = 12;
+const ePrecision = 6;
+
 let displayVal = 0,
     oldVal = 0,
     newVal = null,
@@ -34,6 +37,9 @@ function handleInput() {
         }
         
         if (newVal === null && !isDecimal) displayVal = "";
+
+        if (displayVal.length >= maxDisplayLength) return;
+
         displayVal += this.textContent;
         newVal = +displayVal;      
 
@@ -73,7 +79,7 @@ function handleInput() {
         op = this.textContent;
         newVal = null;
         isDecimal = false;
-        displayVal = +oldVal.toFixed(8);
+        displayVal = fitInDisplay(oldVal.toString());
 
     } else if (this.classList.contains("equals")) {
 
@@ -82,7 +88,7 @@ function handleInput() {
             fresh = true;
             if (newVal !== null) {
                 oldVal = operate(op, oldVal, newVal);
-                displayVal = +oldVal.toFixed(8);     
+                displayVal = fitInDisplay(oldVal.toString())  
             // except when there's no second operand, just reset operator
             } else {
                 op = null;
@@ -92,6 +98,19 @@ function handleInput() {
     }
 
     display.textContent = displayVal; // update display
+}
+
+function fitInDisplay(n) {
+    // if more than maximum # of digits before decimal, convert to exponential notation
+    if (n.split(".")[0].length > maxDisplayLength || n.includes("e"))
+        return (+n).toExponential(ePrecision).toString();
+
+    // otherwise if the length still exceeds maximum then truncate
+    // (this will only cut off digits after the decimal)
+    if (n.length > maxDisplayLength)
+        return n.slice(0, maxDisplayLength + 1);
+
+    return n;
 }
 
 const add = function(a, b) {
