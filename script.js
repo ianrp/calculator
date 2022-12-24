@@ -65,7 +65,7 @@ function handleInput() {
     } else if (this.classList.contains("operator")) {
 
         // ongoing operation
-        if (!fresh) {
+        if (!fresh && newVal !== null) {
             // if chained operation, resolve previous one first
             if (op) oldVal = operate(op, oldVal, newVal);
             // otherwise store last entered value as old value
