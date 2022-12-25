@@ -5,7 +5,7 @@ let displayVal = 0,
     oldVal = 0,
     newVal = null,
     op = null,
-    fresh = true;
+    completedOp = true;
 
 const display = document.querySelector(".display");
 
@@ -22,11 +22,11 @@ function handleInput() {
         oldVal = 0;
         newVal = null;
         op = null;
-        fresh = true;
+        completedOp = true;
 
     } else if (this.classList.contains("backspace")) {
         
-        if (!fresh) {
+        if (!completedOp) {
             displayVal = displayVal.slice(0, -1);
             newVal = +displayVal;
         }
@@ -34,9 +34,9 @@ function handleInput() {
     } else if (this.classList.contains("number")) {
 
         // reset values for new operation
-        if (fresh) {    
+        if (completedOp) {    
             op = null;
-            fresh = false;
+            completedOp = false;
         }
         
         if (newVal === null) displayVal = "";
@@ -48,9 +48,9 @@ function handleInput() {
 
     } else if (this.classList.contains("decimal")) {     
 
-        if (fresh) { 
+        if (completedOp) { 
             op = null;
-            fresh = false;
+            completedOp = false;
         }
 
         if (newVal === null) {
@@ -63,7 +63,7 @@ function handleInput() {
 
     } else if (this.classList.contains("sign")) {
 
-        if (fresh) {
+        if (completedOp) {
             oldVal *= -1;
             displayVal = oldVal;
         } else {
@@ -74,7 +74,7 @@ function handleInput() {
     } else if (this.classList.contains("operator")) {
 
         // ongoing operation
-        if (!fresh && newVal !== null) {
+        if (!completedOp && newVal !== null) {
             // if chained operation, resolve previous one first
             if (op) oldVal = operate(op, oldVal, newVal);
             // otherwise store last entered value as old value
@@ -84,7 +84,7 @@ function handleInput() {
         // note that the same old value is kept for a fresh operation
         // so that pressing an operator just after pressing enter uses the previous result
 
-        fresh = false;
+        completedOp = false;
         op = this.textContent;
         newVal = null;
         displayVal = fitInDisplay(oldVal.toString());
@@ -93,7 +93,7 @@ function handleInput() {
 
         // if an operator is stored, calculate result and store as old value
         if (op) {
-            fresh = true;
+            completedOp = true;
             if (newVal !== null) {
                 oldVal = operate(op, oldVal, newVal);
                 displayVal = fitInDisplay(oldVal.toString())  
