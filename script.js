@@ -61,6 +61,16 @@ function handleInput() {
         if(!displayVal.toString().includes("."))
             displayVal += ".";
 
+    } else if (this.classList.contains("sign")) {
+
+        if (fresh) {
+            oldVal *= -1;
+            displayVal = oldVal;
+        } else {
+            newVal *= -1;
+            displayVal = newVal;
+        }
+
     } else if (this.classList.contains("operator")) {
 
         // ongoing operation
