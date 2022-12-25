@@ -5,8 +5,7 @@ let displayVal = 0,
     oldVal = 0,
     newVal = null,
     op = null,
-    fresh = true,
-    isDecimal = false;
+    fresh = true;
 
 const display = document.querySelector(".display");
 
@@ -24,7 +23,6 @@ function handleInput() {
         newVal = null;
         op = null;
         fresh = true;
-        isDecimal = false;
 
     } else if (this.classList.contains("number")) {
 
@@ -36,7 +34,7 @@ function handleInput() {
             fresh = false;
         }
         
-        if (newVal === null && !isDecimal) displayVal = "";
+        if (newVal === null) displayVal = "";
 
         if (displayVal.length >= maxDisplayLength) return;
 
@@ -45,22 +43,20 @@ function handleInput() {
 
     } else if (this.classList.contains("decimal")) {     
 
-        if(!isDecimal) {
-
-            if (fresh) { 
-                oldVal = 0;
-                newVal = null;       
-                op = null;
-                fresh = false;
-            }
-
-            isDecimal = true;
-            if (newVal === null) {
-                displayVal = 0;
-                newVal = 0;
-            }
-            displayVal += ".";
+        if (fresh) { 
+            oldVal = 0;
+            newVal = null;
+            op = null;
+            fresh = false;
         }
+
+        if (newVal === null) {
+            displayVal = 0;
+            newVal = 0;
+        }
+
+        if(!displayVal.toString().includes("."))
+            displayVal += ".";
 
     } else if (this.classList.contains("operator")) {
 
@@ -78,7 +74,6 @@ function handleInput() {
         fresh = false;
         op = this.textContent;
         newVal = null;
-        isDecimal = false;
         displayVal = fitInDisplay(oldVal.toString());
 
     } else if (this.classList.contains("equals")) {
