@@ -10,8 +10,15 @@ let displayVal = 0,
 const display = document.querySelector(".display");
 
 // add listener to each calculator button to handle input
-document.querySelector(".buttons").childNodes.forEach((button) => 
-    button.addEventListener("mousedown", handleInput));
+document.querySelector(".buttons").childNodes.forEach((button) => {
+    button.addEventListener("click", handleInput);
+});
+
+document.addEventListener("keydown", (event) => {
+    const button = document.querySelector(`[key="${event.key}"]`);
+    if(button) button.click();
+});
+    
 
 // check class of element which calls this and handle according to button type
 function handleInput() {
