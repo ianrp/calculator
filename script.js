@@ -27,9 +27,7 @@ function handleInput() {
     } else if (this.classList.contains("number")) {
 
         // reset values for new operation
-        if (fresh) { 
-            oldVal = 0;
-            newVal = null;       
+        if (fresh) {    
             op = null;
             fresh = false;
         }
@@ -44,8 +42,6 @@ function handleInput() {
     } else if (this.classList.contains("decimal")) {     
 
         if (fresh) { 
-            oldVal = 0;
-            newVal = null;
             op = null;
             fresh = false;
         }
