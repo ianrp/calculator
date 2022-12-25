@@ -24,6 +24,13 @@ function handleInput() {
         op = null;
         fresh = true;
 
+    } else if (this.classList.contains("backspace")) {
+        
+        if (!fresh) {
+            displayVal = displayVal.slice(0, -1);
+            newVal = +displayVal;
+        }
+
     } else if (this.classList.contains("number")) {
 
         // reset values for new operation
