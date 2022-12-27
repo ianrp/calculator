@@ -4,12 +4,14 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .calculator {
     width: 350px;
     height: 500px;
     border-style: solid;
+    border-radius: 20px;
 }
 
 .display {
@@ -21,19 +23,48 @@ body {
     font-size: 48px;
     padding-right: 12px;
     padding-top: 24px;
+    border-radius: 20px 20px;
 }
 
 .buttons {
+    background-color:rgb(170, 170, 170);
     height: 80%;
     display: grid;
     grid-template-columns: repeat(4, 25%);
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 0px 0px 20px 20px;
 }
 
-.clear {
+.zero {
     grid-column: 1 / 3;
 }
 
 button {
     background-color: rgb(180, 180, 180);
     font-size: 24px;
+    margin: 4px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px rgb(255, 255, 255) inset;
 }
+
+button:active {
+    background-color: rgb(139, 139, 139);
+    box-shadow: 2px 2px 2px rgb(0, 200, 255);
+}
+
+button:hover {
+    box-shadow: 0px 0px 0px 2px rgb(0, 200, 255);
+}
+
+.operator:focus {
+    box-shadow: 0px 0px 0px 2px rgb(25, 194, 101);
+}
+
+.number     { background-color:rgb(147, 182, 211); }
+.operator   { background-color:rgb(147, 211, 192); }
+.equals     { background-color:rgb(211, 191, 147); }
+.clear      { background-color:rgb(207, 211, 147); }
+.backspace  { background-color:rgb(211, 147, 147); }
+.sign       { background-color:rgb(157, 147, 211); }
+.decimal    { background-color:rgb(147, 182, 211); }
